@@ -50,8 +50,6 @@ int randomA(int max) {
 
 // Sprawdzenie czy miejsce wylosowane przez komputer jest dostępne, jeśli nie to wywołaj siebie (tę funkcję jeszcze raz)
 void checkFreeSpace(int x, int y, char storage[arraySize][arraySize]) {
-    //char copyOfStorage = storage;
-    //char check = storage[x][y];
     if (storage[x][y] == ' ') {
         addToArray(storage, input, x, y);
     } else {
@@ -60,7 +58,6 @@ void checkFreeSpace(int x, int y, char storage[arraySize][arraySize]) {
         checkFreeSpace(A, B, storage);
     }
 }
-
 
 int flipCoin(void) {
     return randomA(2);
@@ -91,9 +88,7 @@ void playerMove(char storage[arraySize][arraySize]) {
 
 // Sprawdzenie czy wogóle a jeśli tak to kto wygrał
 int checkResult(char storage[arraySize][arraySize]) {
-    
     int output = 2;
-    
     for (int i = 0; i < arraySize - 2; i++) {
         for (int j = 0; j < arraySize - 2; j++) {
             if (storage[i][j] != ' ') {
@@ -273,7 +268,6 @@ foundit:
 }
 
 int main(int argc, const char * argv[]) {
-
     // Te zmienne potrzebne sa w przypadku checi kontynuowania gry
     char run = 'Y';
     // Pomocnicza zmienna do wywołania funkcji losowej aby wybrać kto zaczyna
