@@ -151,6 +151,8 @@ int checkResult(char storage[arraySize][arraySize]) {
     }
     return output;
 }
+
+// tu sprawdzamy czy wszystkie pola sa zapelnione (np w przypadku gdy jest remis)
 int checkFinal(char storage[arraySize][arraySize]) {
     int output = 2;
     for (int y = 0; y < arraySize; y++) {
