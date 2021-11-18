@@ -1,24 +1,14 @@
-//
-//  main.c
-//  KikGame
-//
-//  Created by MacBook Pro (Tomasz) on 17/11/2021.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
 
-// Definiujemy elementy tablicy
-char input = 'O';
+char input = 'O'; // Definiujemy elementy tablicy
 char player = 'X';
 
-// minimalny rozmiar tablicy to 3 x 3
-int arraySize = 3;
+int arraySize = 3; // minimalny rozmiar tablicy to 3 x 3
 
-// Funkcja wyśiwetlania tablicy (na żądanie)
-int returnArray(char storage[arraySize][arraySize]) {
+int returnArray(char storage[arraySize][arraySize]) { // Funkcja wyśiwetlania tablicy (na żądanie)
     for (int y = 0; y < arraySize; y++) {
         for (int z = 0; z < arraySize; z++) {
             printf("| %c |", storage[y][z]);
@@ -29,13 +19,11 @@ int returnArray(char storage[arraySize][arraySize]) {
     return 0;
 }
 
-// Funkcja dodawania do tablicy
-void addToArray(char storage[arraySize][arraySize], char input, int x, int y) {
+void addToArray(char storage[arraySize][arraySize], char input, int x, int y) { // Funkcja dodawania do tablicy
     storage[x][y] = input;
 }
 
-// Stan początkowy (czysta tablica)
-void initialState(char storage[arraySize][arraySize]) {
+void initialState(char storage[arraySize][arraySize]) { // Stan początkowy (czysta tablica)
     for (int i = 0; i < arraySize; i++) {
         for (int j = 0; j < arraySize; j++) {
             addToArray(storage, ' ', i, j);
@@ -43,13 +31,11 @@ void initialState(char storage[arraySize][arraySize]) {
     }
 }
 
-// Tworzenie liczby losowej w zakresie tablicy
-int randomA(int max) {
+int randomA(int max) { // Tworzenie liczby losowej w zakresie tablicy
     return rand() % max;
 }
 
-// Sprawdzenie czy miejsce wylosowane przez komputer jest dostępne, jeśli nie to wywołaj siebie (tę funkcję jeszcze raz)
-void checkFreeSpace(int x, int y, char storage[arraySize][arraySize]) {
+void checkFreeSpace(int x, int y, char storage[arraySize][arraySize]) { // Sprawdzenie czy miejsce wylosowane przez komputer jest dostępne, jeśli nie to wywołaj siebie (tę funkcję jeszcze raz)
     if (storage[x][y] == ' ') {
         addToArray(storage, input, x, y);
     } else {
@@ -59,12 +45,11 @@ void checkFreeSpace(int x, int y, char storage[arraySize][arraySize]) {
     }
 }
 
-int flipCoin(void) {
+int flipCoin(void) { //Wybor kto zaczyna pierwszy
     return randomA(2);
 }
 
-// Zapytanie gracza o podanie współrzędnych i sprawdzenie czy są puste
-void playerMove(char storage[arraySize][arraySize]) {
+void playerMove(char storage[arraySize][arraySize]) { // Zapytanie gracza o podanie współrzędnych i sprawdzenie czy są puste
     printf("Select your row:");
     int row, column;
     scanf("%i", &row);
@@ -86,8 +71,7 @@ void playerMove(char storage[arraySize][arraySize]) {
     }
 }
 
-// Sprawdzenie czy wogóle a jeśli tak to kto wygrał
-int checkResult(char storage[arraySize][arraySize]) {
+int checkResult(char storage[arraySize][arraySize]) { // Sprawdzenie czy wogóle a jeśli tak to kto wygrał
     int output = 2;
     for (int i = 0; i < arraySize - 2; i++) {
         for (int j = 0; j < arraySize - 2; j++) {
@@ -147,8 +131,7 @@ int checkResult(char storage[arraySize][arraySize]) {
     return output;
 }
 
-// tu sprawdzamy czy wszystkie pola sa zapelnione (np w przypadku gdy jest remis)
-int checkFinal(char storage[arraySize][arraySize]) {
+int checkFinal(char storage[arraySize][arraySize]) { // tu sprawdzamy czy wszystkie pola sa zapelnione (np w przypadku gdy jest remis)
     int output = 2;
     for (int y = 0; y < arraySize; y++) {
         for (int z = 0; z < arraySize; z++) {
@@ -162,8 +145,7 @@ out:
     return output;
 }
 
-// Ta funkcja sprawdza czy jest mozliwosc zablokowania gracza
-int checkMe(int x, int y, char storage[arraySize][arraySize]) {
+int checkMe(int x, int y, char storage[arraySize][arraySize]) { // Ta funkcja sprawdza czy jest mozliwosc zablokowania gracza
     if (x < 0) {
         x = 0;
     }
@@ -187,8 +169,7 @@ int checkMe(int x, int y, char storage[arraySize][arraySize]) {
     return ret;
 }
 
-// Ta funkcja sprawdza czy istnieje ryzyko wygrania przez gracza a nastepnie wywoluje funkcje powyzej aby go zablowac jak sie da
-void func(char storage[arraySize][arraySize]) {
+void func(char storage[arraySize][arraySize]) { // Ta funkcja sprawdza czy istnieje ryzyko wygrania przez gracza a nastepnie wywoluje funkcje powyzej aby go zablowac jak sie da
     int add = 1;
     for (int i = 0; i < arraySize - 1; i++) {
         for (int j = 0; j < arraySize - 1; j++) {
@@ -268,10 +249,8 @@ foundit:
 }
 
 int main(int argc, const char * argv[]) {
-    // Te zmienne potrzebne sa w przypadku checi kontynuowania gry
-    char run = 'Y';
-    // Pomocnicza zmienna do wywołania funkcji losowej aby wybrać kto zaczyna
-    int flip;
+    char run = 'Y';     // Te zmienne potrzebne sa w przypadku checi kontynuowania gry
+    int flip;     // Pomocnicza zmienna do wywołania funkcji losowej aby wybrać kto zaczyna
     srand(time(NULL));
     do {
         printf("Let's start. Insert number of rows/columns. Anything less than 3 or more than 10 won't be accepted: ");
@@ -279,7 +258,6 @@ int main(int argc, const char * argv[]) {
     } while (arraySize < 3 || arraySize > 10);
     flip = flipCoin();
     char storage[arraySize][arraySize];
-    
     initialState(storage);
     printf("%c", returnArray(storage));
     do {
