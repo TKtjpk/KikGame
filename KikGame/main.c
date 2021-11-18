@@ -6,7 +6,7 @@
 char input = 'O'; // Definiujemy elementy tablicy
 char player = 'X';
 
-int arraySize = 3; // minimalny rozmiar tablicy to 3 x 3
+int arraySize; // minimalny rozmiar tablicy to 3 x 3
 
 int returnArray(char storage[arraySize][arraySize]) { // Funkcja wyśiwetlania tablicy (na żądanie)
     for (int y = 0; y < arraySize; y++) {
