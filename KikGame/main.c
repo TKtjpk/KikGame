@@ -71,63 +71,172 @@ void playerMove(char storage[arraySize][arraySize]) { // Zapytanie gracza o poda
     }
 }
 
+int checkWho(int n, int m) {
+    int output = 2;
+    if (n == (arraySize - 1)) {
+        output = 0;
+    } else if (m == (arraySize - 1)) {
+        output = 1;
+    }
+    return output;
+}
+
 int checkResult(char storage[arraySize][arraySize]) { // Sprawdzenie czy wogóle a jeśli tak to kto wygrał
     int output = 2;
-    for (int i = 0; i < arraySize - 2; i++) {
-        for (int j = 0; j < arraySize - 2; j++) {
-            if (storage[i][j] != ' ') {
-                if (storage[i][j] == storage[i+1][j+1] && storage[i][j] == storage[i+2][j+2]) {
-                    if (storage[i][j] == 'O') {
-                        output = 0;
-                    } else if (storage[i][j] == 'X') {
-                        output = 1;
+//    for (int i = 0; i < arraySize - 2; i++) {
+//        for (int j = 0; j < arraySize - 2; j++) {
+//            if (storage[i][j] != ' ') {
+//                if (storage[i][j] == storage[i+1][j+1] && storage[i][j] == storage[i+2][j+2]) {
+//                    if (storage[i][j] == 'O') {
+//                        output = 0;
+//                    } else if (storage[i][j] == 'X') {
+//                        output = 1;
+//                    }
+//                }
+//            }
+//        }
+//    }
+    int n = 0;
+    int m = 0;
+    for (int i = 1; i < arraySize; i++) {
+        if (storage[0][0] != ' ') {
+            if (storage[0][0] == storage[0+i][0+i]) {
+                if (storage[0][0] == 'O') {
+                    n += 1;
+                    output = checkWho(n, m);
+                    if (output == 0) {
+                        goto ret;
+                    }
+                } else if (storage[0][0] == 'X') {
+                    m += 1;
+                    output = checkWho(n, m);
+                    if (output == 1) {
+                        goto ret;
+                    }
+                }
+            }
+        }
+    }
+//    if (n == (arraySize - 1)) {
+//        output = 0;
+//    } else if (m == (arraySize - 1)) {
+//        output = 1;
+//    }
+    
+//    for (int i = arraySize - 1; i > 1; i--) {
+//        for (int j = 0; j < arraySize - 2; j++) {
+//            if (storage[i][j] != ' ') {
+//                if (storage[i][j] == storage[i-1][j+1] && storage[i][j] == storage[i-2][j+2]) {
+//                    if (storage[i][j] == 'O') {
+//                        output = 0;
+//                    } else if (storage[i][j] == 'X') {
+//                        output = 1;
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+    n = 0;
+    m = 0;
+    for (int i = 1; i < arraySize; i++) {
+        if (storage[0][arraySize-1] != ' ') {
+            if (storage[0][arraySize-1] == storage[0+i][arraySize-1-i]) {
+                if (storage[0][arraySize-1] == 'O') {
+                    n += 1;
+                    output = checkWho(n, m);
+                    if (output == 0) {
+                        goto ret;
+                    }
+                } else if (storage[0][arraySize-1] == 'X') {
+                    m += 1;
+                    output = checkWho(n, m);
+                    if (output == 1) {
+                        goto ret;
                     }
                 }
             }
         }
     }
     
-    for (int i = arraySize - 1; i > 1; i--) {
-        for (int j = 0; j < arraySize - 2; j++) {
-            if (storage[i][j] != ' ') {
-                if (storage[i][j] == storage[i-1][j+1] && storage[i][j] == storage[i-2][j+2]) {
-                    if (storage[i][j] == 'O') {
-                        output = 0;
-                    } else if (storage[i][j] == 'X') {
-                        output = 1;
+//    for (int i = 0; i < arraySize - 2; i++) {
+//        for (int j = 0; j < arraySize; j++) {
+//            if (storage[i][j] != ' ') {
+//                if (storage[i][j] == storage[i+1][j] && storage[i][j] == storage[i+2][j]) {
+//                    if (storage[i][j] == 'O') {
+//                        output = 0;
+//                    } else if (storage[i][j] == 'X') {
+//                        output = 1;
+//                    }
+//                }
+//            }
+//        }
+//    }
+    n = 0;
+    m = 0;
+    for (int j = 0; j < arraySize; j++) {
+        n = 0;
+        m = 0;
+        for (int i = 1; i < arraySize; i++) {
+            if (storage[0][j] != ' ') {
+                if (storage[0][j] == storage[0+i][j]) {
+                    if (storage[0][j] == 'O') {
+                        n += 1;
+                        output = checkWho(n, m);
+                        if (output == 0) {
+                            goto ret;
+                        }
+                    } else if (storage[0][j] == 'X') {
+                        m += 1;
+                        output = checkWho(n, m);
+                        if (output == 1) {
+                            goto ret;
+                        }
                     }
                 }
             }
         }
     }
     
-    for (int i = 0; i < arraySize - 2; i++) {
-        for (int j = 0; j < arraySize; j++) {
-            if (storage[i][j] != ' ') {
-                if (storage[i][j] == storage[i+1][j] && storage[i][j] == storage[i+2][j]) {
-                    if (storage[i][j] == 'O') {
-                        output = 0;
-                    } else if (storage[i][j] == 'X') {
-                        output = 1;
+//    for (int i = 0; i < arraySize; i++) {
+//        for (int j = 0; j < arraySize - 2; j++) {
+//            if (storage[i][j] != ' ') {
+//                if (storage[i][j] == storage[i][j+1] && storage[i][j] == storage[i][j+2]) {
+//                    if (storage[i][j] == 'O') {
+//                        output = 0;
+//                    } else if (storage[i][j] == 'X') {
+//                        output = 1;
+//                    }
+//                }
+//            }
+//        }
+//    }
+    n = 0;
+    m = 0;
+    for (int j = 0; j < arraySize; j++) {
+        n = 0;
+        m = 0;
+        for (int i = 1; i < arraySize; i++) {
+            if (storage[j][0] != ' ') {
+                if (storage[j][0] == storage[j][0+i]) {
+                    if (storage[j][0] == 'O') {
+                        n += 1;
+                        output = checkWho(n, m);
+                        if (output == 0) {
+                            goto ret;
+                        }
+                    } else if (storage[j][0] == 'X') {
+                        m += 1;
+                        output = checkWho(n, m);
+                        if (output == 1) {
+                            goto ret;
+                        }
                     }
                 }
             }
         }
     }
-    
-    for (int i = 0; i < arraySize; i++) {
-        for (int j = 0; j < arraySize - 2; j++) {
-            if (storage[i][j] != ' ') {
-                if (storage[i][j] == storage[i][j+1] && storage[i][j] == storage[i][j+2]) {
-                    if (storage[i][j] == 'O') {
-                        output = 0;
-                    } else if (storage[i][j] == 'X') {
-                        output = 1;
-                    }
-                }
-            }
-        }
-    }
+ret:
     return output;
 }
 
@@ -175,7 +284,7 @@ void func(char storage[arraySize][arraySize]) { // Ta funkcja sprawdza czy istni
         for (int j = 0; j < arraySize - 1; j++) {
             if (storage[i][j] != ' ') {
                 if (storage[i][j] == storage[i+1][j+1]) {
-                    if (storage[i][j] == 'X') {
+                    if (storage[i][j] != ' ') {
                         if (checkMe(i-1, j-1, storage) == 1) {
                             add = 0;
                             goto foundit;
@@ -192,7 +301,7 @@ void func(char storage[arraySize][arraySize]) { // Ta funkcja sprawdza czy istni
         for (int j = 0; j < arraySize - 1; j++) {
             if (storage[i][j] != ' ') {
                 if (storage[i][j] == storage[i-1][j+1]) {
-                    if (storage[i][j] == 'X') {
+                    if (storage[i][j] != ' ') {
                         if (checkMe(i+1, j-1, storage) == 1) {
                             add = 0;
                             goto foundit;
@@ -209,7 +318,7 @@ void func(char storage[arraySize][arraySize]) { // Ta funkcja sprawdza czy istni
         for (int j = 0; j < arraySize; j++) {
             if (storage[i][j] != ' ') {
                 if (storage[i][j] == storage[i+1][j]) {
-                    if (storage[i][j] == 'X') {
+                    if (storage[i][j] != ' ') {
                         if (checkMe(i-1, j, storage) == 1) {
                             add = 0;
                             goto foundit;
@@ -226,7 +335,7 @@ void func(char storage[arraySize][arraySize]) { // Ta funkcja sprawdza czy istni
         for (int j = 0; j < arraySize - 1; j++) {
             if (storage[i][j] != ' ') {
                 if (storage[i][j] == storage[i][j+1]) {
-                    if (storage[i][j] == 'X') {
+                    if (storage[i][j] != ' ') {
                         if (checkMe(i, j-1, storage) == 1) {
                             add = 0;
                             goto foundit;
