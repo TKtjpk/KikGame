@@ -169,7 +169,7 @@ int checkMe(int x, int y, char storage[arraySize][arraySize]) { // Ta funkcja sp
     return ret;
 }
 
-void func(char storage[arraySize][arraySize]) { // Ta funkcja sprawdza czy istnieje ryzyko wygrania przez gracza a nastepnie wywoluje funkcje powyzej aby go zablowac jak sie da
+void func(char storage[arraySize][arraySize]) { // Ta funkcja sprawdza czy istnieje ryzyko wygrania przez gracza a nastepnie wywoluje funkcje powyzej aby go zablokowac jak sie da
     int add = 1;
     for (int i = 0; i < arraySize - 1; i++) {
         for (int j = 0; j < arraySize - 1; j++) {
@@ -251,13 +251,14 @@ foundit:
 int main(int argc, const char * argv[]) {
     char run = 'Y';     // Te zmienne potrzebne sa w przypadku checi kontynuowania gry
     int flip;     // Pomocnicza zmienna do wywołania funkcji losowej aby wybrać kto zaczyna
-    srand(time(NULL));
+    char storage[arraySize][arraySize];
+    //srand( static_cast<unsigned int>(time(nullptr)));
+    srand( (unsigned int) time(NULL) ); //srand(time(NULL)); // ERROR: Implicit conversion loses integer precision: 'time_t' (aka 'long') to 'unsigned int'
     do {
         printf("Let's start. Insert number of rows/columns. Anything less than 3 or more than 10 won't be accepted: ");
         scanf(" %i", &arraySize);
     } while (arraySize < 3 || arraySize > 10);
     flip = flipCoin();
-    char storage[arraySize][arraySize];
     initialState(storage);
     printf("%c", returnArray(storage));
     do {
